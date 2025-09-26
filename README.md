@@ -1,85 +1,19 @@
-# Assignment: Linear Models, Regularization, and Model Selection on Real Data
+# Informe final
 
-**Deadline:** Sunday, October 5th, 2025, 23:59
+**Integrantes**
+- dedostorcidos
 
-**Environment:** Python, `numpy`, `pandas`, `matplotlib`, `scikit-learn`.
+**Diferencias entre OLS, Ridge y Lasso**
+- OLS replica exactamente la solución cerrada y coincide con `LinearRegression`, pero deja coeficientes grandes para `MedInc` (California) y para variables climáticas/temporales (bicicletas), lo que lo vuelve sensible al ruido y a la multicolinealidad.
+- Ridge mantiene todos los predictores pero reduce su magnitud; en California amortigua `AveRooms`, `AveBedrms` y los términos geográficos, mientras que en bicicletas suaviza el efecto de clima y hora sin anularlos.
+- Lasso obliga a coeficientes cero para señales débiles: en California colapsa `AveOccup`, `Population` y parte de los términos polinomiales; en bicicletas elimina indicadores redundantes (clima suave, flags laborales) y deja solo los drivers principales.
 
----
+**Efecto de la tasa de aprendizaje en descenso de gradiente**
+- Con características estandarizadas, una tasa pequeña (0.01 en vivienda, 0.001 en bicicletas) converge lentamente pero de forma muy estable.
+- La tasa mayor usada (0.1 en vivienda, 0.01 en bicicletas) alcanza el mínimo en pocas iteraciones sin desestabilizar el costo, aunque requiere vigilar posibles oscilaciones si se eleva más.
+- En ambos conjuntos los parámetros finales coinciden con OLS dentro de la tolerancia numérica, validando la implementación.
 
-## Part A. Linear Regression From Scratch
-
-1. **Dataset**
-   Use the **California Housing dataset** (`from sklearn.datasets import fetch_california_housing`).
-
-   * Create a hold-out test set.
-   * Standardize features to zero mean and unit variance.
-   * Predict the median house value (`MedHouseVal`) from the remaining features using `LinearRegression` from `sklearn.linear_model`.
-
-2. **Closed-form OLS**
-
-   * Derive and implement $\hat\beta = (X^\top X)^{-1}X^\top y$ using only `numpy`.
-   * Report coefficients and intercept.
-   * Plot predicted vs. true median house value on a held-out test set.
-
-3. **Gradient Descent**
-
-   * Implement gradient descent to minimize mean squared error.
-   * Experiment with at least two learning rates; show cost vs. iteration curves.
-   * Compare parameters and test error to the closed-form OLS.
-
----
-
-## Part B. Scikit-learn Linear Models
-
-4. **Baseline**
-
-   * Use `LinearRegression` and confirm the coefficients match your OLS implementation.
-   * Compute $R^2$ and mean squared error on the test set.
-
----
-
-## Part C. Regularization and Hyperparameter Choice
-
-5. **Ridge and Lasso**
-
-   * Fit `Ridge` and `Lasso` regressions for $\lambda$ values logarithmically spaced between $10^{-3}$ and $10^{2}$.
-   * Plot coefficient magnitude vs. $\lambda$ (regularization paths).
-   * Comment on which features shrink to (or toward) zero and why.
-
-6. **k-Fold Cross-Validation**
-
-   * Use `KFold` with 5 folds and `cross_val_score` to select the best $\alpha$ for both Ridge and Lasso.
-   * Alternatively, demonstrate the convenience of `RidgeCV` and `LassoCV`.
-   * Compare cross-validated test errors.
-
-7. **Feature Engineering & Multicollinearity**
-
-  * Add polynomial features (degree 2) using `PolynomialFeatures`.
-  * Re-run Ridge/Lasso and discuss how regularization copes with the enlarged feature space.
-
----
-
-## Part D. Bike Rentals
-
-8. **Alternative Dataset**
-
-  * Use the **Bike Sharing Dataset** (available in the `data` folder).
-  * Predict daily rentals (`cnt`); investigate seasonal effects.
-  * Apply all the same steps as above.
-
----
-
-### Deliverables
-You must fork the [original repository](), and turn in a link to your groups repository with:
-
-* A Jupyter notebook (in the `src` folder) with:
-
-  * Your `numpy` implementations for OLS and gradient descent,
-  * Plots: cost-function convergence, coefficient paths, predicted vs. actual values.
-* A write-up in Markdown. Replace the contents of this file (`README.md`) with:
-  
-  * The names of your group's members,
-  * Differences observed between OLS, Ridge, and Lasso,
-  * Effect of learning rate on gradient descent,
-  * How k-fold cross-validation influenced the choice of regularization strength.
-
+**Impacto de la validación cruzada en la regularización**
+- `RidgeCV` eligió penalizaciones suaves que prácticamente empatan el error de OLS mientras contienen la varianza al añadir rasgos polinomiales.
+- `LassoCV` seleccionó alfas intermedios que promueven sparsity: reduce el error en vivienda gracias a eliminar redundancias y evita sobreajuste en bicicletas, sobre todo con expansiones cuadráticas.
+- Los planes con polinomios grado 2 solo son estables con estas alfas óptimas; sin CV el modelo se vuelve inestable o sobreajustado.
