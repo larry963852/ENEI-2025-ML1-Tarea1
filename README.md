@@ -23,10 +23,6 @@
     ```bash
     pip install -r requirements.txt
     ```
-
-## Entregables
-- Cuaderno guiado: `src/tutorial_modelos_lineales.ipynb` (incluye implementaciones desde cero, modelos de scikit-learn, regularizacion y el estudio del conjunto de bicicletas).
-
 ## Hallazgos principales
 
 ### Diferencias entre OLS, Ridge y Lasso
