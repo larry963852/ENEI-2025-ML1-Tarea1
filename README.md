@@ -30,7 +30,7 @@
 ### Diferencias entre OLS, Ridge y Lasso
 - OLS sirve como linea base y ofrece el mejor ajuste cuando el numero de variables es moderado y no hay penalizacion; sin embargo, es sensible a colinealidad y puede producir coeficientes de gran magnitud.
 - Ridge conserva todas las variables pero reduce su magnitud de manera uniforme. En el cuaderno se observa que produce un ligero descenso del error de prueba y coeficientes mas estables frente a cambios en los datos.
-- Lasso fuerza algunos coeficientes exactamente a cero. En nuestros experimentos, Lasso mantiene un desempeno similar a Ridge con la ventaja de seleccionar un subconjunto mas compacto de variables, sobre todo cuando se incluyen polinomios.
+- Lasso fuerza algunos coeficientes exactamente a cero. En nuestros experimentos, Lasso mantiene un desempeño similar a Ridge con la ventaja de seleccionar un subconjunto mas compacto de variables, sobre todo cuando se incluyen polinomios.
 
 ### Efecto de la tasa de aprendizaje en descenso de gradiente
 - Con `alpha = 0.001` el costo disminuye de forma constante pero lenta, necesitando muchas iteraciones para acercarse al optimo.
