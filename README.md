@@ -1,7 +1,9 @@
 # Informe del proyecto: Modelos lineales y regularizacion
 
 ## Integrantes del equipo
-- Completa aqui los nombres de las personas del equipo.
+-CHAMORRO ALVA MELVIN
+-GARCIA IRAITA LUCY 
+-LUNA CARRERA MARISOL
 
 ## Configuración del entorno
 
