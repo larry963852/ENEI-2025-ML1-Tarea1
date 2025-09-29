@@ -1,9 +1,9 @@
 # Informe del proyecto: Modelos lineales y regularizacion
 
 ## Integrantes del equipo
--CHAMORRO ALVA MELVIN
--GARCIA IRAITA LUCY 
--LUNA CARRERA MARISOL
+- CHAMORRO ALVA MELVIN
+- GARCIA IRAITA LUCY 
+- LUNA CARRERA MARISOL
 
 ## Configuración del entorno
 
